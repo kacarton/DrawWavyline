@@ -5,7 +5,7 @@ interface
 uses Graphics, Windows;
 
 const
-  RequiredColor = $AAAAFF;//±ØÌîÏîÌáÊ¾ÑÕÉ«
+  RequiredColor = $AAAAFF;//å¿…å¡«é¡¹æç¤ºé¢œè‰²
 
 procedure DrawWaveLine4W(ACanvas: TCanvas; Bottom: Integer; Right: Integer);
 procedure DrawWaveLine3W(ACanvas: TCanvas; Bottom: Integer; Right: Integer);
@@ -17,9 +17,7 @@ procedure DrawWaveLine2R(DC: HDC; Bottom: Integer; Right: Integer); overload;
 
 implementation
 
-
-
-//»æÖÆVVVĞÍ²¨ÎÆÏß£¨\/\/\/\/\/\/\/£©£¬¼ä¾à4px
+//ç»˜åˆ¶VVVå‹æ³¢çº¹çº¿ï¼ˆ\/\/\/\/\/\/\/ï¼‰ï¼Œé—´è·4px
 procedure DrawWaveLine4W(ACanvas: TCanvas; Bottom: Integer; Right: Integer);
 var
   i: integer;
@@ -32,7 +30,7 @@ begin
   end;
 end;
 
-//»æÖÆVVVĞÍ²¨ÎÆÏß£¨\/\/\/\/\/\/\/£©£¬¼ä¾à3px
+//ç»˜åˆ¶VVVå‹æ³¢çº¹çº¿ï¼ˆ\/\/\/\/\/\/\/ï¼‰ï¼Œé—´è·3px
 procedure DrawWaveLine3W(ACanvas: TCanvas; Bottom: Integer; Right: Integer);
 var
   i: integer;
@@ -46,7 +44,7 @@ begin
 end;
 
 //                      ___     ___
-//»æÖÆÔ²¹ÂĞÍ²¨ÎÆÏß£¨___/   \___/   \£©£¬¼ä¾à3px
+//ç»˜åˆ¶åœ†å­¤å‹æ³¢çº¹çº¿ï¼ˆ___/   \___/   \ï¼‰ï¼Œé—´è·3px
 procedure DrawWaveLine3V(ACanvas: TCanvas; Bottom: Integer; Right: Integer);
 var
   i: integer;
@@ -61,7 +59,7 @@ begin
 end;
 
 //                     __    __
-//»æÖÆÔ²¹ÂĞÍ²¨ÎÆÏß£¨__/  \__/  \£©£¬¼ä¾à3px
+//ç»˜åˆ¶åœ†å­¤å‹æ³¢çº¹çº¿ï¼ˆ__/  \__/  \ï¼‰ï¼Œé—´è·3px
 procedure DrawWaveLine3R(ACanvas: TCanvas; Bottom: Integer; Right: Integer); overload;
 var
   i: integer;
@@ -84,7 +82,7 @@ begin
   APen := TPen.Create;
   try
     APen.Color := RequiredColor;
-    APen.Style := psDot;
+    APen.Style := psSolid;
     H := SelectObject(DC, APen.Handle);
     try
       i := 1;
@@ -102,7 +100,7 @@ begin
   end;
 end;
 
-//»æÖÆÔ²¹ÂĞÍ²¨ÎÆÏß£¨__--__--£©£¬¼ä¾à2px
+//ç»˜åˆ¶åœ†å­¤å‹æ³¢çº¹çº¿ï¼ˆ__--__--ï¼‰ï¼Œé—´è·2px
 procedure DrawWaveLine2R(ACanvas: TCanvas; Bottom: Integer; Right: Integer); overload;
 var
   i: integer;
@@ -111,6 +109,7 @@ begin
   ACanvas.MoveTo(i, Bottom - 1);
   while i < Right do begin
     ACanvas.LineTo(i + 2, Bottom - (i and $1));
+    ACanvas.LineTo(i + 3, Bottom - ((i+1) and $1));
     i := i + 3;
   end;
 end;
@@ -124,13 +123,14 @@ begin
   APen := TPen.Create;
   try
     APen.Color := RequiredColor;
-    APen.Style := psDot;
+    APen.Style := psSolid;
     H := SelectObject(DC, APen.Handle);
     try
       i := 1;
       MoveToEx(DC, i, Bottom - 1, nil);
       while i < Right do begin
         LineTo(DC, i + 2, Bottom - (i and $1));
+        LineTo(DC, i + 3, Bottom - ((i+1) and $1));
         i := i + 3;
       end;
     finally
